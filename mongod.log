@@ -1,0 +1,64 @@
+2021-01-23T20:58:09.231+0000 I CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] MongoDB starting : pid=2122 port=27017 dbpath=/root/server/mongo 64-bit host=vultr.guest
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] db version v4.0.22
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] git version: 1741806fb46c161a1d42870f6e98f5100d196315
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.1f  31 Mar 2020
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] modules: none
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten] build environment:
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten]     distmod: ubuntu1804
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2021-01-23T20:58:09.250+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2021-01-23T20:58:09.251+0000 I CONTROL  [initandlisten] options: { config: "mongod.conf", net: { bindIp: "0.0.0.0", port: 27017 }, storage: { dbPath: "/root/server/mongo" }, systemLog: { destination: "file", logAppend: true, path: "/root/server/mongod.log" } }
+2021-01-23T20:58:09.253+0000 I STORAGE  [initandlisten] 
+2021-01-23T20:58:09.253+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2021-01-23T20:58:09.253+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2021-01-23T20:58:09.253+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=256M,cache_overflow=(file_max=0M),session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2021-01-23T20:58:10.245+0000 I STORAGE  [initandlisten] WiredTiger message [1611435490:245157][2122:0x7f96b9831c80], txn-recover: Set global recovery timestamp: 0
+2021-01-23T20:58:10.256+0000 I RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2021-01-23T20:58:10.271+0000 I CONTROL  [initandlisten] 
+2021-01-23T20:58:10.271+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2021-01-23T20:58:10.271+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2021-01-23T20:58:10.271+0000 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2021-01-23T20:58:10.271+0000 I CONTROL  [initandlisten] 
+2021-01-23T20:58:10.287+0000 I STORAGE  [initandlisten] createCollection: admin.system.version with provided UUID: 19c92177-5a75-4ac0-a7e1-610595b8022b
+2021-01-23T20:58:10.299+0000 I SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2021-01-23T20:58:10.299+0000 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 4.0
+2021-01-23T20:58:10.300+0000 I SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2021-01-23T20:58:10.301+0000 I SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2021-01-23T20:58:10.301+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with generated UUID: 7c4d1b5c-dac2-42fe-8c69-15b34fcf98da
+2021-01-23T20:58:10.312+0000 I SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2021-01-23T20:58:10.313+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/root/server/mongo/diagnostic.data'
+2021-01-23T20:58:10.320+0000 I SHARDING [LogicalSessionCacheRefresh] Marking collection config.system.sessions as collection version: <unsharded>
+2021-01-23T20:58:10.320+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+2021-01-23T20:58:10.333+0000 I CONTROL  [LogicalSessionCacheReap] Sessions collection is not set up; waiting until next sessions reap interval: config.system.sessions does not exist
+2021-01-23T20:58:10.333+0000 I STORAGE  [LogicalSessionCacheRefresh] createCollection: config.system.sessions with generated UUID: 77ce2992-cfe5-45fa-8dc5-1689c5d67cbc
+2021-01-23T20:58:10.349+0000 I INDEX    [LogicalSessionCacheRefresh] build index on: config.system.sessions properties: { v: 2, key: { lastUse: 1 }, name: "lsidTTLIndex", ns: "config.system.sessions", expireAfterSeconds: 1800 }
+2021-01-23T20:58:10.349+0000 I INDEX    [LogicalSessionCacheRefresh] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2021-01-23T20:58:10.351+0000 I INDEX    [LogicalSessionCacheRefresh] build index done.  scanned 0 total records. 0 secs
+2021-01-23T20:58:11.001+0000 I SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+2021-01-23T20:58:13.839+0000 I CONTROL  [signalProcessingThread] got signal 2 (Interrupt), will terminate after current cmd ends
+2021-01-23T20:58:13.839+0000 I REPL     [signalProcessingThread] Stepping down the ReplicationCoordinator for shutdown, waitTime: 10000ms
+2021-01-23T20:58:13.840+0000 I CONTROL  [signalProcessingThread] Shutting down the LogicalSessionCache
+2021-01-23T20:58:13.840+0000 I NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+2021-01-23T20:58:13.840+0000 I NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+2021-01-23T20:58:13.840+0000 I NETWORK  [signalProcessingThread] Shutting down the global connection pool
+2021-01-23T20:58:13.840+0000 I STORAGE  [signalProcessingThread] Shutting down the PeriodicThreadToAbortExpiredTransactions
+2021-01-23T20:58:13.840+0000 I REPL     [signalProcessingThread] Shutting down the ReplicationCoordinator
+2021-01-23T20:58:13.840+0000 I SHARDING [signalProcessingThread] Shutting down the ShardingInitializationMongoD
+2021-01-23T20:58:13.840+0000 I COMMAND  [signalProcessingThread] Killing all open transactions
+2021-01-23T20:58:13.840+0000 I -        [signalProcessingThread] Killing all operations for shutdown
+2021-01-23T20:58:13.840+0000 I NETWORK  [signalProcessingThread] Shutting down the ReplicaSetMonitor
+2021-01-23T20:58:13.840+0000 I CONTROL  [signalProcessingThread] Shutting down free monitoring
+2021-01-23T20:58:13.840+0000 I CONTROL  [signalProcessingThread] Shutting down free monitoring
+2021-01-23T20:58:13.841+0000 I FTDC     [signalProcessingThread] Shutting down full-time data capture
+2021-01-23T20:58:13.841+0000 I FTDC     [signalProcessingThread] Shutting down full-time diagnostic data capture
+2021-01-23T20:58:13.844+0000 I STORAGE  [signalProcessingThread] Shutting down the HealthLog
+2021-01-23T20:58:13.844+0000 I STORAGE  [signalProcessingThread] Shutting down the storage engine
+2021-01-23T20:58:13.845+0000 I STORAGE  [signalProcessingThread] WiredTigerKVEngine shutting down
+2021-01-23T20:58:13.846+0000 I STORAGE  [signalProcessingThread] Shutting down session sweeper thread
+2021-01-23T20:58:13.846+0000 I STORAGE  [signalProcessingThread] Finished shutting down session sweeper thread
+2021-01-23T20:58:13.911+0000 I STORAGE  [signalProcessingThread] shutdown: removing fs lock...
+2021-01-23T20:58:13.911+0000 I -        [signalProcessingThread] Dropping the scope cache for shutdown
+2021-01-23T20:58:13.912+0000 I CONTROL  [signalProcessingThread] now exiting
+2021-01-23T20:58:13.912+0000 I CONTROL  [signalProcessingThread] shutting down with code:0
