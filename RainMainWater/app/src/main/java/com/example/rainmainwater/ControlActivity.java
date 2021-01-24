@@ -92,28 +92,28 @@ public class ControlActivity extends AppCompatActivity {
         bar.setProgressDrawable(draw);
 
         RestSingleton restSingleton = RestSingleton.getInstance(getApplicationContext());
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getMode",
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//                            String modeText = new JSONObject(response).getString("result");
-//                            mode.setText(modeText);
-//                            manual = modeText.equals("manual");
-//                            // Need to finish this endpoint still
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.d("Error connecting", String.valueOf(error));
-//            }
-//        });
-//        restSingleton.addToRequestQueue(stringRequest);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getMode",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Boolean modeText = new JSONObject(response).getBoolean("automatic");
+                            mode.setText(modeText ? "Automatic" : "Manual");
+                            manual = !modeText;
+                            // Need to finish this endpoint still
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(stringRequest);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getWaterSource",
+        stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getWaterSource",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -167,6 +167,7 @@ public class ControlActivity extends AppCompatActivity {
         });
     }
 
+    // TODO: Create a way to change automatic variable on server through app
     private void updateMode() {
         // mode.setText(res.getString("mode"));
     }
