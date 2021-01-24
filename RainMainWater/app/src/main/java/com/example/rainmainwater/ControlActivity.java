@@ -167,9 +167,28 @@ public class ControlActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: Create a way to change automatic variable on server through app
     private void updateMode() {
-        // mode.setText(res.getString("mode"));
+        RestSingleton restSingleton = RestSingleton.getInstance(getApplicationContext());
+        JSONObject body = new JSONObject();
+        try {
+            body.put("automatic", !manual);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "putMode", body,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(jsonObjectRequest);
     }
 
     private void updateSource() {
@@ -182,7 +201,6 @@ public class ControlActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /* this isn't working for some reason */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, restSingleton.getUrl() + "handle", body,
                 new Response.Listener<JSONObject>() {
                     @Override
