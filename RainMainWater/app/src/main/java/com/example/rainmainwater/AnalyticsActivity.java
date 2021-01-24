@@ -16,6 +16,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import  java.util.Calendar;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,12 +63,33 @@ public class AnalyticsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         RestSingleton restSingleton = RestSingleton.getInstance(getApplicationContext());
-        JsonObjectRequest JsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "getWaterLevelPoints", newEventData,
+        JsonObjectRequest JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, restSingleton.getUrl() + "getWaterLevelPoints", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             makeGraph(response); //
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(JsonObjectRequest);
+
+
+
+//         mains avg daily consumption
+        JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, restSingleton.getUrl() + "avgDailyConsmpMonthMain", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            makeMainsConsumptGraph(response); //
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -137,9 +161,9 @@ public class AnalyticsActivity extends AppCompatActivity {
 
  */
 
-//        waterUsage = findViewById(R.id.WaterUsage);
-//        waterLevel = findViewById(R.id.WaterLevel);
-//        waterRatio = findViewById(R.id.WaterRatio);
+        waterUsage = findViewById(R.id.WaterUsage);
+        waterLevel = findViewById(R.id.WaterLevel);
+        waterRatio = findViewById(R.id.WaterRatio);
 
     }
 
@@ -147,23 +171,52 @@ public class AnalyticsActivity extends AppCompatActivity {
     private void makeGraph(JSONObject response) throws JSONException {
    //     parseString(response.getString("points"));  //Parses the getStrings of the data
         JSONArray c = response.getJSONArray("pairs");
-        SimpleDateFormat formatter6=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter6=new SimpleDateFormat("MM-dd-yyyy");
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{});
         for (int i = 0 ; i < c.length(); i++) {
             JSONObject obj = c.getJSONObject(i);
-            double level = obj.getDouble("level");
+            double level = obj.getDouble("dailyLevel");
             Date date = new Date();
+
+
             try {
-                  date = formatter6.parse(obj.getString("date"));
+                  date = formatter6.parse(obj.getString("_id") + "-2021");
+//                  date = formatter6.parse(obj.getString("date").split("T")[0]);
+                  System.out.println(date);
             }
-            catch (ParseException e) {
+            catch (Exception e) {
                 System.out.println(e);
+                System.out.println("Having a hard time parsing in makeGraph... here's the raw _id: " + obj.getString("_id"));
+
             }
             series.appendData(new DataPoint(date, level), false, 100);
 
         }
 
         graph.addSeries(series);
+    }
+    private void makeMainsConsumptGraph(JSONObject response) throws JSONException {
+        //     parseString(response.getString("points"));  //Parses the getStrings of the data
+        JSONArray c = response.getJSONArray("pairs");
+        SimpleDateFormat formatter6=new SimpleDateFormat("MM-dd-yyyy");
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{});
+        for (int i = 0 ; i < c.length(); i++) {
+            JSONObject obj = c.getJSONObject(i);
+            double level = obj.getDouble("dailyVolume");
+            Date date = new Date();
+            try {
+                date = formatter6.parse(obj.getString("_id")+ "-2021");
+                System.out.println(obj.getString("_id"));
+            }
+            catch (ParseException e) {
+                System.out.println("Having a hard time parsing in makeMainsConsumpt... here's the raw date: " + obj.getString("_id"));
+                System.out.println(e);
+            }
+            series.appendData(new DataPoint(date, level), false, 100);
+
+        }
+
+//        graph.addSeries(series); TODO make a new graph object to add this to!
     }
 
     private void updateWaterUsage(JSONObject res) throws JSONException {
