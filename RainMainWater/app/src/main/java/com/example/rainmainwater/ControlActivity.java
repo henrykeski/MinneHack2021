@@ -35,8 +35,10 @@ public class ControlActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            updateUI(new JSONObject(response));
-                        } catch (JSONException e) {
+                            // updateUI(new JSONObject(response));
+                            System.out.println("Request Queued");
+                        } // catch (JSONException e) {
+                        catch (Exception e){
                             e.printStackTrace();
                         }
                     }
