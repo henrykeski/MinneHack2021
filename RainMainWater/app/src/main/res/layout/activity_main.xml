@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="250dp"
         android:src="@drawable/logo"
         app:layout_constraintTop_toTopOf="parent"
