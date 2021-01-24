@@ -129,9 +129,9 @@ public class AnalyticsActivity extends AppCompatActivity {
         restSingleton.addToRequestQueue(stringRequest);
 
  */
-        waterUsage = findViewById(R.id.WaterUsage);
-        waterLevel = findViewById(R.id.WaterLevel);
-        waterRatio = findViewById(R.id.WaterRatio);
+//        waterUsage = findViewById(R.id.WaterUsage);
+//        waterLevel = findViewById(R.id.WaterLevel);
+//        waterRatio = findViewById(R.id.WaterRatio);
 
     }
 
