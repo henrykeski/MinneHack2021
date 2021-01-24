@@ -30,15 +30,31 @@ public class ControlActivity extends AppCompatActivity {
 
 
         RestSingleton restSingleton = RestSingleton.getInstance(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getWaterLevel",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getMode",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            // updateUI(new JSONObject(response));
-                            System.out.println("Request Queued");
-                        } // catch (JSONException e) {
-                        catch (Exception e){
+                            updateMode(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(stringRequest);
+
+        stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getSource",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            updateSource(new JSONObject(response));
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -78,5 +94,13 @@ public class ControlActivity extends AppCompatActivity {
             source.setText("Rain Water");
             usingRain = true;
         }
+    }
+
+    private void updateMode(JSONObject res) throws JSONException {
+        mode.setText(res.getString("mode"));
+    }
+
+    private void updateSource(JSONObject res) throws JSONException {
+        source.setText(res.getString("source"));
     }
 }
