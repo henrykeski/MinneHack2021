@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -27,6 +28,7 @@ import java.util.GregorianCalendar;
 
 public class AnalyticsActivity extends AppCompatActivity {
 
+    ProgressBar PWaterLevel;
     TextView waterUsage;
     TextView waterLevel;
     TextView waterRatio;
@@ -40,6 +42,11 @@ public class AnalyticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics);
         graph = (GraphView) findViewById(R.id.graph);
+        waterUsage = findViewById(R.id.WaterUsage);
+        waterLevel = findViewById(R.id.WaterLevel);
+        waterRatio = findViewById(R.id.WaterRatio);
+        PWaterLevel = findViewById(R.id.progressBar);
+        PWaterLevel.setMax(100);
         JSONObject newEventData = new JSONObject();
         Date today = new Date();
         Calendar cal = new GregorianCalendar();
@@ -70,8 +77,8 @@ public class AnalyticsActivity extends AppCompatActivity {
             }
         });
         restSingleton.addToRequestQueue(JsonObjectRequest);
-
 /*
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getUsage",         //Get Request for Water Usage
                 new Response.Listener<String>() {
                     @Override
@@ -89,14 +96,14 @@ public class AnalyticsActivity extends AppCompatActivity {
             }
         });
         restSingleton.addToRequestQueue(stringRequest);
+*/
 
-
-        stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getLevel",       //Get Request for water Level
-                new Response.Listener<String>() {
+        JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, restSingleton.getUrl() + "getWaterLevel", null,      //Get Request for water Level
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            updateWaterLevel(new JSONObject(response)); //
+                            updateWaterLevel(response); //
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -107,9 +114,9 @@ public class AnalyticsActivity extends AppCompatActivity {
                 Log.d("Error connecting", String.valueOf(error));
             }
         });
-        restSingleton.addToRequestQueue(stringRequest);
+        restSingleton.addToRequestQueue(JsonObjectRequest);
 
-
+/*
         stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getRatio",      //Get request for water Ratio
                 new Response.Listener<String>() {
                     @Override
@@ -129,9 +136,7 @@ public class AnalyticsActivity extends AppCompatActivity {
         restSingleton.addToRequestQueue(stringRequest);
 
  */
-        waterUsage = findViewById(R.id.WaterUsage);
-        waterLevel = findViewById(R.id.WaterLevel);
-        waterRatio = findViewById(R.id.WaterRatio);
+
 
     }
 
@@ -158,13 +163,15 @@ public class AnalyticsActivity extends AppCompatActivity {
         graph.addSeries(series);
     }
 
-
     private void updateWaterUsage(JSONObject res) throws JSONException {
         waterUsage.setText(res.getString("waterUsage"));
     }
     private void updateWaterLevel(JSONObject res) throws JSONException {
-        waterLevel.setText(res.getString("waterLevel"));
+        double level = res.getDouble("result");
+        waterLevel.setText(Double.toString(level/4095*100));
+        PWaterLevel.setProgress((int) (level/4095*100));
     }
+
     private void updateWaterRatio(JSONObject res) throws JSONException {
         waterRatio.setText(res.getString("waterRatio"));
     }

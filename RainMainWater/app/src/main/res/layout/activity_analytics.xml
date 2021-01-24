@@ -18,81 +18,61 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="52dp"
-        android:text="Temperature"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="60dp"
         android:text="Water Usage"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginBottom="136dp"
         android:text="Water Level"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="60dp"
         android:text="Household % renewable"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="57dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="# °F"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/WaterUsage"
         android:layout_width="58dp"
         android:layout_height="47dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
         android:text="# gal/day"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/WaterLevel"
         android:layout_width="59dp"
         android:layout_height="46dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginBottom="80dp"
         android:text="# % full"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/WaterRatio"
         android:layout_width="57dp"
         android:layout_height="44dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="12dp"
         android:text="# %"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -106,5 +86,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="131dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="32dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="356dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
