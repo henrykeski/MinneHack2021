@@ -50,9 +50,9 @@ public class ControlActivity extends AppCompatActivity {
         ChangeMode = findViewById(R.id.changeMode);
         spinner = findViewById(R.id.spinner);
         List<String> categories = new ArrayList<String>();
-        categories.add("Low");
-        categories.add("Medium");
-        categories.add("High");
+        categories.add("Main");
+        categories.add("Balanced");
+        categories.add("Rain");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,7 +73,7 @@ public class ControlActivity extends AppCompatActivity {
                         bar.setBackgroundColor(R.color.burnt);
                         break;
                     case 2:
-                        bar.setProgress(90, true);
+                        bar.setProgress(80, true);
                         bar.setBackgroundColor(R.color.hippyStatus);
                         break;
                 }
