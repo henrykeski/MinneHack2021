@@ -99,8 +99,8 @@
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
-        android:layout_width="404dp"
-        android:layout_height="215dp"
+        android:layout_width="364dp"
+        android:layout_height="218dp"
         android:layout_marginBottom="240dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
