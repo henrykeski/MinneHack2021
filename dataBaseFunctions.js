@@ -1,13 +1,34 @@
 var mongojs = require("mongojs");
 
-var url = 'mongodb://104.207.128.199/hackDatabase';
+const mongoURI = 'admin:raspberrypi@104.207.128.199/runoff?authMechanism=SCRAM-SHA-1';
 
 // put collections needed in here
-var collections = ['myCollection'];
+var collections = ['mains-usage', 'rain-usage', 'water-level'];
 
 var assert = require('assert');
 
-var DBRef = mongojs(url, collections);
+const DBRef = mongojs(mongoURI, collections);
+
+/* GET: avgDailyConsmp */
+// module.exports.getAvgDailyConsump = function(callback) {
+//     DBRef.collection('water-level').aggregate(
+//
+//     )
+// }
+
+/* POST: recordWaterLevel */
+module.exports.recordWaterLevel = function(data, callback) {
+    DBRef.collection('water-level').save(data, function(err, result){
+        console.log(data);
+        if (err) {
+            console.log(err);
+        } else {
+            // Completed
+        }
+    });
+    callback(data);
+};
+
 
 // the following are anonymous functions that will be used in index.js
 // example
@@ -20,3 +41,4 @@ var DBRef = mongojs(url, collections);
 //	 }
 //     }
 // };
+
