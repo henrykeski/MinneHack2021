@@ -242,7 +242,7 @@ var flowRateTimer = setInterval(function() {
 																										'volume': volume,
 																										'rate': rate,
 																										'source': source,
-																										'date': new Date() - Math.floor((Math.random() * 30) + 1)};
+																										'date': new Date()};
 																				dataBase.recordFlowRate(data, function(doc) {
 																						//console.log(doc);
 																				});
@@ -272,7 +272,7 @@ var waterLevelTimer = setInterval(function() {
             res.sendStatus(400);
         } else {
             var data = {'level': docs.result,
-                        'date': new Date()-Math.floor((Math.random() * 30) + 1)};
+                        'date': new Date()};
             dataBase.recordWaterLevel(data, function(doc) {
                 //console.log(doc);
             });
@@ -286,7 +286,7 @@ var chooseMainOrRain = setInterval(function() {
             res.sendStatus(400);
         } else {
             var data = {'level': docs.result,
-                        'date': new Date() - Math.floor((Math.random() * 30) + 1)};
+                        'date': new Date()};
             dataBase.recordWaterLevel(data, function(doc) {
                 //console.log(doc);
             });
