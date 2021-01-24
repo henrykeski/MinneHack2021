@@ -4,4 +4,7 @@
     <color name="colorPrimaryLight">#6573c3</color>
     <color name="colorPrimaryDark">#2c387e</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="hot">#8b0000</color>
+    <color name="burnt">#cc5500</color>
+    <color name="hippyStatus">#32cd32</color>
 </resources>

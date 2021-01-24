@@ -137,6 +137,9 @@ public class AnalyticsActivity extends AppCompatActivity {
 
  */
 
+//        waterUsage = findViewById(R.id.WaterUsage);
+//        waterLevel = findViewById(R.id.WaterLevel);
+//        waterRatio = findViewById(R.id.WaterRatio);
 
     }
 
