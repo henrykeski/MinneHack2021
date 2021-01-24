@@ -48,6 +48,7 @@ public class AnalyticsActivity extends AppCompatActivity {
         PWaterLevel = findViewById(R.id.progressBar);
         PWaterLevel.setMax(100);
         JSONObject newEventData = new JSONObject();
+        JSONObject newUsageData = new JSONObject();
         Date today = new Date();
         Calendar cal = new GregorianCalendar();
         cal.setTime(today);
@@ -55,6 +56,7 @@ public class AnalyticsActivity extends AppCompatActivity {
         try {
             newEventData.put("startDate", cal.getTime());
             newEventData.put("endDate", new Date());
+            newUsageData.put("waterSource", "rain-usage");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -77,14 +79,15 @@ public class AnalyticsActivity extends AppCompatActivity {
             }
         });
         restSingleton.addToRequestQueue(JsonObjectRequest);
-/*
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getUsage",         //Get Request for Water Usage
-                new Response.Listener<String>() {
+
+
+        JsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "getFlowRatePoints", newUsageData,       //Get Request for Water Usage
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            updateWaterUsage(new JSONObject(response)); //
+                            updateWaterUsage(response); //
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -95,8 +98,9 @@ public class AnalyticsActivity extends AppCompatActivity {
                 Log.d("Error connecting", String.valueOf(error));
             }
         });
-        restSingleton.addToRequestQueue(stringRequest);
-*/
+        restSingleton.addToRequestQueue(JsonObjectRequest);
+
+
 
         JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, restSingleton.getUrl() + "getWaterLevel", null,      //Get Request for water Level
                 new Response.Listener<JSONObject>() {
