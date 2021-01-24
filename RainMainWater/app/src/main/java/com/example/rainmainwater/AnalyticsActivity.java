@@ -124,6 +124,31 @@ public class AnalyticsActivity extends AppCompatActivity {
         graph2.addSeries(series);
     }
 
+    private void makeRainConsumptGraph(JSONObject response) throws JSONException {
+        //     parseString(response.getString("points"));  //Parses the getStrings of the data
+        JSONArray c = response.getJSONArray("pairs");
+        SimpleDateFormat formatter6=new SimpleDateFormat("MM-dd-yyyy");
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{});
+        for (int i = 0 ; i < c.length(); i++) {
+            JSONObject obj = c.getJSONObject(i);
+            double level = Double.parseDouble(df.format(obj.getDouble("dailyVolume")));
+            Date date = new Date();
+            try {
+                date = formatter6.parse(obj.getString("_id")+ "-2021");
+                System.out.println("getting rainwater on day: " + obj.getString("_id"));
+            }
+            catch (ParseException e) {
+                System.out.println("Having a hard time parsing in makeMainsConsumpt... here's the raw date: " + obj.getString("_id"));
+                System.out.println(e);
+            }
+            series.appendData(new DataPoint(i, level), false, 31);
+
+        }
+
+        graph3.setTitle("Rain water consumed (liters) vs. elapsed days");
+        graph3.addSeries(series);
+    }
+
     public void refresh(View view){
         JSONObject newEventData = new JSONObject();
         Date today = new Date();
@@ -165,6 +190,24 @@ public class AnalyticsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             makeMainsConsumptGraph(response); //
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(JsonObjectRequest);
+//          rain avg daily consumption
+        JsonObjectRequest = new JsonObjectRequest(Request.Method.GET, restSingleton.getUrl() + "avgDailyConsmpMonthRain", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            makeRainConsumptGraph(response); //
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
