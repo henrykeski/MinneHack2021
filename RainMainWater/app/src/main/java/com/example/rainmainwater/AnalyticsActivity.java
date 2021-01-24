@@ -10,11 +10,14 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class AnalyticsActivity extends AppCompatActivity {
 
+    GraphView graph;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics);
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+
+        graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
