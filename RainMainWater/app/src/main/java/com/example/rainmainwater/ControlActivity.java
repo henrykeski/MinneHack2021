@@ -34,6 +34,7 @@ public class ControlActivity extends AppCompatActivity {
 
     TextView mode;
     Boolean manual = false;
+    Integer priority;
     TextView source;
     Boolean usingRain = true;
     Button ChangeSource;
@@ -77,6 +78,7 @@ public class ControlActivity extends AppCompatActivity {
                         bar.setBackgroundColor(R.color.hippyStatus);
                         break;
                 }
+                updatePriority(position);
             }
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -92,15 +94,35 @@ public class ControlActivity extends AppCompatActivity {
         bar.setProgressDrawable(draw);
 
         RestSingleton restSingleton = RestSingleton.getInstance(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getMode",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getPriority",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Boolean modeText = new JSONObject(response).getBoolean("automatic");
+                            int priorityNum = new JSONObject(response).getInt("priority");
+                            updatePriority(priorityNum);
+                            priority = priorityNum;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
+        restSingleton.addToRequestQueue(stringRequest);
+
+        restSingleton = RestSingleton.getInstance(getApplicationContext());
+        stringRequest = new StringRequest(Request.Method.GET, restSingleton.getUrl() + "getMode",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            boolean modeText = new JSONObject(response).getBoolean("automatic");
                             mode.setText(modeText ? "Automatic" : "Manual");
                             manual = !modeText;
-                            // Need to finish this endpoint still
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -220,6 +242,31 @@ public class ControlActivity extends AppCompatActivity {
                 return params;
             }
         };
+        restSingleton.addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void updatePriority(int priority) {
+        if (priority < 0 || priority > 2) return;
+        RestSingleton restSingleton = RestSingleton.getInstance(getApplicationContext());
+        JSONObject body = new JSONObject();
+        try {
+            body.put("priority", priority == 0 ? "main" : priority == 1 ? "balanced" : "rain");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, restSingleton.getUrl() + "putPriority", body,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error connecting", String.valueOf(error));
+            }
+        });
         restSingleton.addToRequestQueue(jsonObjectRequest);
     }
 }
